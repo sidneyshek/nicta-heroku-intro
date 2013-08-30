@@ -8,30 +8,32 @@
    - Optional database (Postgres)
    - Optional add-ons
    - Load balancer in front
-
-
 - Runs on AWS (US East or Europe)
 
 
 ### Why?
 - Write code, don't manage infrastructure
-- Provides rollback, backups and build pipelines
+- Provides app management features like:
+   - Rollback
+   - Backups
+   - Build pipelines
 
 
 ### Supported stacks
 - Ruby
-- Node.Js
+- Node.js
 - Python
 - Clojure
 - Java - with embedded servlet container
 - Scala - Play or custom app
 - Grails (ugh)
-- ...anything you want with a custom Procfile and/or build pack
+- ...anything you want with custom Procfile and/or build pack
 
 
 ### What is a Dyno?
-- Small nodes - 512MB 1 CPU or 1GB 2 CPU
-- 1 free small dyno per app. You get 'unlimited' apps for free
+- 512MB 1 CPU or 1GB 2 CPU
+- 1 free small dyno per app
+- 'Unlimited' apps for free
 - 'Scale out' rather than 'scale up'
 
 
@@ -45,20 +47,8 @@
 
 
 ### Add-ons
-- Managed services that can be easily added on (free and paid)
+- Managed services that can be easily added on
 - [https://addons.heroku.com/](https://addons.heroku.com/)
-
-
-	- Dynos are shutdown and moved around at will without your permission
-		- Resilience
-		- Statelessness
-
-Database - Postgres. Free supports 10,000 rows. $9/mth for 10M
-
-Add-ons - managed services that can be easily added on
-e.g. memcache, SSL, other databases, monitoring, log capture
-	- if there is an add on, typically you need to manage it through the Add-on interface rather than the provider's native website
-
 
 
 
@@ -69,33 +59,32 @@ e.g. memcache, SSL, other databases, monitoring, log capture
 4. Deploy an app
 5. Check out logs and database
 
-- Create
-- Create DB
-- Install DB
-- Build
-- Check logs
-- Access database
-- Access shell
-	- Procfile
-
-
-
-## But my setup is different
-- Procfile specifies how to start your app
-- Custom build pack
-
 
 
 ## Traps to watch out for
-- Heroku uptime - relies on AWS (East coast or EU)
-- Dynos go up and down all the time
-- Dynos shut down with no usage
-- Load balancer has no server affinity
-- Dynos are really small...so watch your JVM!
-- App must start in < 60 seconds
-- App must build in < 15 minutes
-- App builds are in the 'cloud' with no access to your private network
 
+
+### Dynos change a lot
+Dynos go up and down all the time
+
+Dynos shut down if no activity
+
+Load balancer has no server affinity
+
+Dynos are really small...so watch your JVM!
+
+Remember: Heroku relies on AWS (East coast or EU)
+
+**_Small, stateless and resilient components!_**
+
+**_Try something like [Pingdom](https://www.pingdom.com) for pinging/monitoring_**
+
+
+## Building and starting apps
+- Apps must start in < 60 seconds
+- Apps must build in < 15 minutes
+- Apps built in the 'cloud'
+   - Include private libraries in your repo
+- Easiest to push entire repos instead of subtrees
 - If your app doesn't start, check the number of dynos you have assigned
 
-- pushing from subtrees
